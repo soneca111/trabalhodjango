@@ -1,7 +1,9 @@
 from django.urls import path
-from . import views
-
+from remedios.views import index, remedio_create, remedio_deletar,remedio_update
 urlpatterns = [
-    path('', views.index, name='remedio'),
-    path('criar/', views.RemedioCreateView.as_view(), name='criar_remedio'),
+    path('', index, name='remedio'),
+    path('criar/', remedio_create, name='criar_remedio'),
+    path('delete/<int:id>',remedio_deletar,name="remedio_delete"),
+    path('alterar/<int:id>',remedio_update,name="remedio_alterar"),
+    
 ]

@@ -1,7 +1,6 @@
 {% extends "_layout.html" %}
-
-
-
+{% block main %}
+<h1>Seja bem vindo, {{ user.username }}!</h1>
 {% block content %}
 
 <div class=".container mx-3 mt-3 ">
@@ -9,6 +8,7 @@
   <thead>
     <tr>
       <th scope="col">Nome</th>
+      <th scope="col">Quantidade</th>
       <th scope="col">Dosagem</th>
       <th scope="col">Data criação</th>
       <th scope="col"> Horario </th>
@@ -21,11 +21,13 @@
 {%for remedio in todos_remedios%}
 <tr>
       <td >{{remedio.nome}}</td>
+      <td >{{remedio.quantidade}}</td>
       <td >{{remedio.dosagem}}</td>
       <td >{{remedio.criado_em|date:"d/m/Y "}}</td>
       <td >{{remedio.horario}} </td>
       <td >{{remedio.observacoes}} </td>
-      <td><a href="" class="bi bi-trash-fill btn btn-outline-danger"> Remover</a></td>
+      <td><a href="{% url 'remedio_delete' id=remedio.id %}" class="bi bi-trash-fill btn btn-outline-danger"> Remover</a>
+   <a href="{% url 'remedio_alterar' id=remedio.id %}" class="bi bi-pencil-square btn btn-outline-warning">Alterar</a></td>
     </tr>
   
 {% empty %}
@@ -39,3 +41,4 @@
     Adicionar remédio
 </a>
 {% endblock content %}
+{% endblock  %}

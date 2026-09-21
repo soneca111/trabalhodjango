@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+import os
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'remedios',
+    'accounts'
+  
 ]
 
 MIDDLEWARE = [
@@ -75,10 +79,18 @@ WSGI_APPLICATION = 'projeto.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'remedio',     # Nome do banco que você criou
+        'USER': 'root',                   # Seu usuário do MySQL
+        'PASSWORD': 'Sonecaatleta123',     # Sua senha do MySQL
+        'HOST': 'localhost',              # Ou '127.0.0.1'
+        'PORT': '3306',                   # Porta padrão do MySQL
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
+
 
 
 # Password validation
@@ -126,3 +138,21 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+
+MESSAGE_TAGS = {
+    messages.DEBUG : "secundary",
+    messages.INFO : "info",
+    messages.SUCCESS : "success",
+    messages.WARNING : "warning",
+    messages.ERROR : "danger",
+}
+
+
+AUTH_USER_MODEL = 'accounts.CustomerUser'
+
+
+LOGIN_REDIRECT_URL = 'remedio'
+
+
+LOGOUT_REDIRECT_URL = 'remedio'
