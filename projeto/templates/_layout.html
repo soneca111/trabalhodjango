@@ -23,17 +23,28 @@
 
        <!-- o flex-column é o flex-direction: column;.  -->
       <ul class=" nav flex-column">
-    <li class="nav-item">
-      <a class="bi bi-house nav-link text-black active  " href="#">  Pagina principal</a>
-    </li>
+
 
     <li class="nav-item">
       <a class="bi bi-capsule nav-link text-black" href="{% url 'remedio' %}">  Remedio</a>
     </li>
 
-        <li class="nav-item">
-      <a class="bi bi-box-arrow-in-left nav-link text-black " href="#">  Login</a>
+ {% if user.is_authenticated %}
+    <!-- Exibido APENAS quando o utilizador ESTÁ logado -->
+    <li class="nav-item mt-2">
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-link nav-link text-black p-0 bi bi-box-arrow-right">
+          Sair ({{ user.username }})
+        </button>
+      </form>
     </li>
+  {% else %}
+    <!-- Exibido APENAS quando o utilizador NÃO está logado -->
+    <li class="nav-item">
+      <a class="bi bi-box-arrow-in-left nav-link text-black" href="{% url 'login' %}"> Login</a>
+    </li>
+  {% endif %}
   </ul>
     </div>
 

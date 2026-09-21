@@ -11,25 +11,29 @@ from remedios.form import RemedioForm
 
 @login_required
 def index(request):
+    
     remedios = Remedio.objects.filter(usuario=request.user)
     context = {"todos_remedios": remedios}
-    return render(request, 'remedio/remedio.html', context)
+    return render(request, 'index.html', context)
 
 @login_required
 def remedio_create(request):
-    context={}
+    context = {}
     form = RemedioForm(request.POST or None, request.FILES or None)
     context['form'] = form
     context['titulo'] = "Adicionar remedio"
     context['botao'] = "Adicionar"
 
-    if request.method =='POST':
+    if request.method == 'POST':
         if form.is_valid():
-            form.save()
-            messages.success(request,"Remedio criado com sucesso")
+            remedio = form.save(commit=False)
+            remedio.usuario = request.user  # type: ignore (Garantir 12 espaços / 3 tabs de recuo)
+            remedio.save()
+
+            messages.success(request, "Remedio criado com sucesso")
             return redirect('remedio')
-        
-    return render(request, 'remedio/formRemedio.html',context)
+
+    return render(request, 'remedio/formRemedio.html', context)
 
 
 

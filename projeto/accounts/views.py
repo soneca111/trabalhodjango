@@ -10,3 +10,9 @@ class AccountCreateView(CreateView):
     template_name = 'registro/signup_form.html'
     success_url = reverse_lazy('remedio')
     success_message = "Usuário Criado com sucesso!"
+
+class Inicial(CreateView):
+    form_class = CustomerUserCreationForm
+    template_name = 'registro/login.html'
+    success_url = reverse_lazy('remedio')
+    success_message = "Usuário Criado com sucesso!"
