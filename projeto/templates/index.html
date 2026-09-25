@@ -1,8 +1,7 @@
 {% extends "_layout.html" %}
-{% block main %}
-<h1>Seja bem vindo, {{ user.username }}!</h1>
-{% block content %}
 
+{% block content %}
+<h1>Seja bem vindo, {{ user.username }}!</h1>
 <div class=".container mx-3 mt-3 ">
 <table class="table">
   <thead class="table-dark">
@@ -43,4 +42,3 @@
 </a>
 
 {% endblock content %}
-{% endblock  %}

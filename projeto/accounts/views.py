@@ -16,6 +16,8 @@ class AccountCreateView(CreateView):
     success_message = "Usuário Criado com sucesso!"
 
 
+
+
 @login_required
 def desativar_conta(request, pk):
     # Busca o usuário pelo ID ou retorna 404 se não existir
