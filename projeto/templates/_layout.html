@@ -6,10 +6,10 @@
 {% endblock head_title %}
 
 {% block css %}
-<!-- Icones do bootstrap  -->
+<!-- Ícones do Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<!-- O bootstrap  -->
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 {% endblock css %}
 
 {% block header %}
@@ -17,35 +17,55 @@
   <div class="row">
 
     <!-- 1. Coluna da Sidebar ocupa 2 das 12 colunas -->
-     <!-- bg-sucess é a cor de fundo |  bg-opacity-50 - é a transparencia  |  min-vh-100-a altura minima é toda tela visivel  -->
-    <div class="col-2 bg-success p-2  bg-opacity-50 min-vh-100">
+    <div class="col-2 bg-success p-2 bg-opacity-50 min-vh-100">
       <p class="fs-4 text-black fw-bold">Menu</p>
 
-       <!-- o flex-column é o flex-direction: column;.  -->
-      <ul class=" nav flex-column">
+      <ul class="nav flex-column">
 
+        <!-- Links Principais do Sistema -->
+        <li class="nav-item">
+          <a class="bi bi-capsule nav-link text-black" href="{% url 'remedio' %}"> Remédios</a>
+        </li>
 
-    <li class="nav-item">
-      <a class="bi bi-capsule nav-link text-black" href="{% url 'remedio' %}">  Remedio</a>
-    </li>
+        <li class="nav-item">
+<a class="bi bi-boxes nav-link text-black" href="{% url 'estoque_list' %}"> Estoque</a>        </li>
 
- {% if user.is_authenticated %}
-    <!-- Exibido APENAS quando o utilizador ESTÁ logado -->
-    <li class="nav-item mt-2">
-      <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-link nav-link text-black p-0 bi bi-box-arrow-right">
-          Sair ({{ user.username }})
-        </button>
-      </form>
-    </li>
-  {% else %}
-    <!-- Exibido APENAS quando o utilizador NÃO está logado -->
-    <li class="nav-item">
-      <a class="bi bi-box-arrow-in-left nav-link text-black" href="{% url 'login' %}"> Login</a>
-    </li>
-  {% endif %}
-  </ul>
+        <li class="nav-item">
+          <a class="bi bi-activity nav-link text-black" href="{% url 'sintoma_list' %}"> Sintomas</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="bi bi-calendar-event nav-link text-black" href="{% url 'consulta_list' %}"> Consultas</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="bi bi-heart-pulse nav-link text-black" href="{% url 'sinal_vital_list' %}"> Sinais Vitais</a>
+        </li>
+
+        <hr class="text-black my-2">
+
+        <!-- Autenticação de Usuário -->
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-link nav-link text-black p-0 bi bi-box-arrow-right">
+                Sair ({{ user.username }})
+
+              </button>
+
+             <a href="{% url 'desativar_conta' user.pk %}" class="btn btn-danger mt-5">Desativar conta</a>
+            </form>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="bi bi-box-arrow-in-left nav-link text-black" href="{% url 'login' %}"> Login</a>
+          </li>
+        {% endif %}
+
+      
+
+      </ul>
     </div>
 
     <!-- 2. Coluna do Conteúdo Principal ocupa 10 das 12 colunas -->

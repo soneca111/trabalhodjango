@@ -1,0 +1,42 @@
+{% extends "_layout.html" %}
+
+{% block head_title %}Sinais Vitais{% endblock head_title %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2><i class="bi bi-heart-pulse"></i> Registros de Sinais Vitais</h2>
+        <a href="{% url 'sinal_vital_create' %}" class="btn btn-success">
+            <i class="bi bi-plus-lg"></i> Registrar Sinal Vital
+        </a>
+    </div>
+
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Data / Hora Aferição</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sinal in sinais %}
+            <tr>
+                <td>{{ sinal.tipo }}</td>
+                <td>{{ sinal.valor }}</td>
+                <td>{{ sinal.data_afericao|date:"d/m/Y H:i" }}</td>
+                <td class="text-center">
+                    <a href="{% url 'sinal_vital_update' sinal.id %}"  class="bi bi-pencil-square btn btn-outline-warning">Alterar</a>
+                    <a href="{% url 'sinal_vital_delete' sinal.id %}"class="bi bi-trash-fill btn btn-outline-danger"> Remover</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center text-muted">Nenhum sinal vital registrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

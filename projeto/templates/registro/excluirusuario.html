@@ -4,7 +4,7 @@
 <div class="container mt-4">
 <form method="POST">
   {% csrf_token %}
-  <p>Tem certeza que deseja excluir o medicamento <strong>"{{ object.nome }}"</strong>?</p>
+  <p>Tem certeza que deseja excluir o usuario <strong>"{{ user.username }}"</strong>?</p>
   <button type="submit" class="btn btn-danger">Sim, Excluir</button>
   <a href="{% url 'remedio' %}" class="btn btn-secondary">Cancelar</a>
 </form>

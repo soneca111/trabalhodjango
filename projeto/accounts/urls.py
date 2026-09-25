@@ -10,8 +10,8 @@ urlpatterns = [
         LoginView.as_view(template_name='registro/login.html'),
         name='login',
     ),
-    # (Opcional) Rota de Logout
     path('logout/', LogoutView.as_view(), name='logout'),
-    
+
+    path('usuario/<int:pk>/desativar/', views.desativar_conta, name='desativar_conta'),
 
 ]
