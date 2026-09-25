@@ -1,44 +1,50 @@
 {% extends "_layout.html" %}
 
 {% block content %}
-<h1>Seja bem vindo, {{ user.username }}!</h1>
-<div class=".container mx-3 mt-3 ">
-<table class="table">
-  <thead class="table-dark">
-  <tr>
-      <th scope="col">Nome</th>
-      <th scope="col">Quantidade</th>
-      <th scope="col">Dosagem</th>
-      <th scope="col">Data criação</th>
-      <th scope="col"> Horario </th>
-      <th scope="col"> Observação </th>
-      <th scope="col">Ação</th>
+<div class="container-fluid py-3">
+  <h1 class="mb-4">Seja bem vindo, {{ user.username }}!</h1>
 
-    </tr>
-  </thead>
-  <tbody>
-{%for remedio in todos_remedios%}
-<tr>
-      <td >{{remedio.nome}}</td>
-      <td >{{remedio.quantidade}}</td>
-      <td >{{remedio.dosagem}}</td>
-      <td >{{remedio.criado_em|date:"d/m/Y "}}</td>
-      <td >{{remedio.horario}} </td>
-      <td >{{remedio.observacoes}} </td>
-      <td><a href="{% url 'remedio_delete' id=remedio.id %}" class="bi bi-trash-fill btn btn-outline-danger"> Remover</a>
-   <a href="{% url 'remedio_alterar' id=remedio.id %}" class="bi bi-pencil-square btn btn-outline-warning">Alterar</a></td>
-    </tr>
-  
-{% empty %}
-    <p>Nenhum remédio cadastrado.</p>
-{% endfor %}
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">Quantidade</th>
+          <th scope="col">Dosagem</th>
+          <th scope="col">Data criação</th>
+          <th scope="col">Horário</th>
+          <th scope="col">Observação</th>
+          <th scope="col" class="text-center">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for remedio in todos_remedios %}
+          <tr>
+            <td>{{ remedio.nome }}</td>
+            <td>{{ remedio.quantidade }}</td>
+            <td>{{ remedio.dosagem }}</td>
+            <td>{{ remedio.criado_em|date:"d/m/Y" }}</td>
+            <td>{{ remedio.horario }}</td>
+            <td>{{ remedio.observacoes }}</td>
+            <td class="text-center">
+              <a href="{% url 'remedio_alterar' id=remedio.id %}" class="btn btn-outline-warning btn-sm bi bi-pencil-square"> Alterar</a>
+              <a href="{% url 'remedio_delete' id=remedio.id %}" class="btn btn-outline-danger btn-sm bi bi-trash-fill"> Remover</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <!-- O colspan="7" faz a mensagem ocupar a largura inteira das 7 colunas da tabela -->
+            <td colspan="7" class="text-center text-muted py-4">
+              Nenhum remédio cadastrado.
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
- </tbody>
-</table>
-
+  <a class="btn btn-success mt-2" href="{% url 'criar_remedio' %}">
+    <i class="bi bi-plus-lg"></i> Adicionar remédio
+  </a>
 </div>
-<a class="btn btn-success" href="{% url 'criar_remedio' %}">
-    Adicionar remédio
-</a>
-
 {% endblock content %}
